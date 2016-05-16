@@ -1,0 +1,1 @@
+The "AD Report" is a web-based server application for the generation reports from Microsoft Active Directory by LDAP protocol.

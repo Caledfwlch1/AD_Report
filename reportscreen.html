@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>AD Report</title>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+ </head>
+ <body>
+
+<p> Поиск по Active Directory</p>
+<table>
+    <tr>
+        <td valign="top">
+            <form method="post">
+            	<fieldset>
+            		<legend>Поиск по дереву</legend>
+            		<input type="text" name="SearchString" size="40"> <Br>
+            		<input type="radio" name="FindType" value="sam" checked> Поиск по имени регистрации <Br>
+            		<input type="radio" name="FindType" value="group"> Поиск по группам <Br>
+            		<input type="radio" name="FindType" value="cn"> Поиск по имени объекта <Br><Br>
+					<input type="checkbox" name="User" value="true" checked> Объект User
+					<input type="checkbox" name="Computer" value="true"> Объект Computer <br><br>
+					Искать в контейнере:<Br>
+					<input type="text" name="SearchOU" value={{.SearchOUweb}} size="40"><Br><Br>
+					Количество объектов:<Br>
+					<input type="number" name="ColObjects" min="0" size="5" value="1000"> <Br><Br>
+            		<input type="submit" value="Отправить">
+            		<input type="reset" value="Очистить"><br><br>
+					<legend>  Включить поля  </legend>
+					<input type="checkbox" name="ChkName" value="true" checked> Имя объекта
+					<input type="checkbox" name="ChkSAM" value="true" checked> SAM имя объекта <br>
+					<input type="checkbox" name="ChkType" value="true"> Тип объекта
+					<input type="checkbox" name="ChkGroup" value="true"> Группы
+            	</fieldset>
+            </form>
+			<br> Строка поиска: <br>
+			{{.PSearchString}} <br>
+	        Количество объектов: {{.Col}}<br>
+        </td>
+        <td>
+			<table border=1>
+				<tr>
+					<td align="center"> Имя объекта </td>
+					<td align="center"> SAM <br> имя объекта </td>
+					<td align="center"> Тип объекта </td>
+					<td align="center"> Группы/Состав группы </td>
+				</tr>
+    	        {{range .OutputString}} 
+				<tr>
+					<td>
+						{{.NameObject}}
+					</td>
+					<td align="center">
+						{{.SAMName}}
+					</td>
+					<td align="center">
+						{{ .TypeObject}}
+					</td>
+					<td>
+						{{range .ExtAttrib}}
+						{{.}} <br>
+						{{end}}
+					</td>
+				</tr>
+				{{end}}
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
+
